@@ -1,0 +1,30 @@
+[submodule "cucumber.el"]
+           path = cucumber.el
+           url = http://github.com/michaelklishin/cucumber.el.git
+[submodule "git-emacs"]
+           path = git-emacs
+           url = http://github.com/tsgates/git-emacs.git
+[submodule "haml"]
+           path = haml
+           url = http://github.com/nex3/haml.git
+[submodule "magit"]
+           path = magit
+           url = git://gitorious.org/magit/mainline.git
+[submodule "nxhtml"]
+           path = nxhtml
+           url = http://github.com/emacsmirror/nxhtml.git
+[submodule "rhtml"]
+           path = rhtml
+           url = http://github.com/eschulte/rhtml.git
+[submodule "rinari"]
+           path = rinari
+           url = http://github.com/eschulte/rinari.git
+[submodule "rspec-mode"]
+           path = rspec-mode.el
+           url = http://github.com/patmaddox/rspec-mode.el.git
+[submodule "yaml-mode"]
+           path = yaml-mode
+           url = http://github.com/yoshiki/yaml-mode.git
+[submodule "yasnippets-rails"]
+           path = yasnippets-rails
+           url = git://github.com/eschulte/yasnippets-rails.git

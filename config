@@ -1,0 +1,181 @@
+;; Interactively Do Things (highly recommended, but not strictly required)
+(require 'ido)
+(ido-mode t)
+
+;; no tabs!
+(setq-default indent-tabs-mode nil)
+
+;; auto-revert buffers on disk changes:
+(global-auto-revert-mode)
+
+;; shell
+(setenv "PAGER" "/bin/cat")
+  (setenv "EDITOR" "/usr/bin/emacsclient") ; `which emacsclient`
+  (server-start)
+
+;; git
+;;(require 'git) ;; basic git official major mode
+
+;; git-emacs
+;; (add-to-list 'load-path "~/.emacs.d/git-emacs")
+;; (require 'git-emacs)
+;; (require 'git-status)
+
+;; magit
+(add-to-list 'load-path "~/.emacs.d/magit")
+(require 'magit)
+
+;; insert end after def in ruby:
+(defun ruby-insert-end ()
+  "Insert \"end\" at point and reindent current line."
+  (interactive)
+  (insert "end")
+  (ruby-indent-line t)
+  (end-of-line)) 
+
+;; Ruby eletric-mode
+(add-hook 'ruby-mode-hook
+          (lambda()
+	    (local-set-key (kbd "RET") 'reindent-then-newline-and-indent) ;Not sure if this line is 100% right but it works!
+	    (add-hook 'local-write-file-hooks
+                      '(lambda()
+                         (save-excursion
+                           (untabify (point-min) (point-max))
+                           (delete-trailing-whitespace)
+                           )))
+            (set (make-local-variable 'indent-tabs-mode) 'nil)
+            (set (make-local-variable 'tab-width) 2)
+            (imenu-add-to-menubar "IMENU")
+            (require 'ruby-electric)
+            (ruby-electric-mode t)
+	    (define-key ruby-mode-map (kbd "TAB") nil)
+            ))
+
+;; Rinari
+(add-to-list 'load-path "~/.emacs.d/rinari")
+(require 'rinari)
+
+;; rhtml
+;;; rhtml mode
+(add-to-list 'load-path "~/.emacs.d/rhtml")
+(require 'rhtml-mode)
+
+;; html
+;; (add-hook 'html-mode-hook
+;; 	  (lamba()
+;; 		(set (make-local-variable 'indent-tabs-mode) 'nil)
+;; 		))
+
+;; rspec-mode
+(add-to-list 'load-path "~/.emacs.d/rspec-mode.el")
+(require 'rspec-mode)
+(add-hook 'rspec-mode-hook
+	  (lambda()
+	    (rinari-launch)
+	    (local-set-key (kbd "RET") 'reindent-then-newline-and-indent) ;Not sure if this line is 100% right but it works!
+	    (add-hook 'local-write-file-hooks
+                      '(lambda()
+                         (save-excursion
+                           (untabify (point-min) (point-max))
+                           (delete-trailing-whitespace)
+                           )))
+            (set (make-local-variable 'indent-tabs-mode) 'nil)
+            (set (make-local-variable 'tab-width) 2)
+	    (require 'ruby-electric)
+            (ruby-electric-mode t)
+	    (define-key ruby-mode-map (kbd "TAB") nil)
+	    ))
+
+;; Cucumber.el
+(add-to-list 'load-path "~/.emacs.d/cucumber.el")
+(setq feature-default-language "en")
+;; point to cucumber languages.yml or gherkin i18n.yml to use
+;; exactly the same localization your cucumber uses
+;(setq feature-default-i18n-file "/path/to/gherkin/gem/i18n.yml")
+;; and load feature-mode
+(require 'feature-mode)
+(add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
+
+;; haml & sass
+(add-to-list 'load-path "~/.emacs.d/haml/extra")
+(require 'haml-mode)
+(require 'sass-mode)
+
+;; yaml mode
+(add-to-list 'load-path "~/.emacs.d/yaml-mode")
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
+;; Yasnippet
+(add-to-list 'load-path "~/.emacs.d")
+(require 'yasnippet-bundle)
+;;(yas/initialize)
+(yas/load-directory "~/.emacs.d/yasnippets-rails/rails-snippets")
+(yas/load-directory "~/.emacs.d/rspec-mode.el/snippets")
+
+;; espresso
+(add-to-list 'load-path "~/.emacs.d/espresso")
+(autoload #'espresso-mode "espresso" "Start espresso-mode" t)
+(add-to-list 'auto-mode-alist '("\\.js$" . espresso-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))
+
+;; markdown-mode
+(add-to-list 'load-path "~/.emacs.d/markdown")
+(autoload 'markdown-mode "markdown.el"
+  "Major mode for editing Markdown files" t)
+(setq auto-mode-alist
+      (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
+
+;; erc
+(add-to-list 'load-path "~/.emacs.d/erc")
+(require 'erc)
+
+;; Theme:
+(defun twilight-like ()
+  (interactive)
+  (color-theme-install
+   '(twilight-like
+      ((background-color . "#020303")
+      (background-mode . light)
+      (border-color . "#3b3a3a")
+      (cursor-color . "#d7fc7e")
+      (foreground-color . "#ffffff")
+      (mouse-color . "black"))
+     (fringe ((t (:background "#3b3a3a"))))
+     (mode-line ((t (:foreground "#bebeb7" :background "#383938"))))
+     (region ((t (:background "#443b2c"))))
+     (font-lock-builtin-face ((t (:foreground "#fb938e"))))
+     (font-lock-comment-face ((t (:foreground "#6b6b6b"))))
+     (font-lock-function-name-face ((t (:foreground "#a17436"))))
+     (font-lock-keyword-face ((t (:foreground "#cbad6c"))))
+     (font-lock-string-face ((t (:foreground "#84b07d"))))
+     (font-lock-type-face ((t (:foreground"#8a6b94"))))
+     (font-lock-variable-name-face ((t (:foreground "#6080a4"))))
+     (font-lock-constant-face ((t (:foreground "#d56c4d"))))
+     (minibuffer-prompt ((t (:foreground "#8bb1fe" :bold t))))
+     (font-lock-warning-face ((t (:foreground "Red" :bold t))))
+     )))
+(provide 'twilight-like)
+
+(require 'color-theme)
+(color-theme-initialize)
+(twilight-like)
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(inhibit-startup-screen t))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
+;; shell-mode colors
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+(global-set-key (kbd "RET") 'newline-and-indent)
+
+(put 'scroll-left 'disabled nil)

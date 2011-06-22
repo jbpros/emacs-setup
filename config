@@ -4,6 +4,7 @@
 
 ;; no tabs!
 (setq-default indent-tabs-mode nil)
+(setq-default tab-width 2)
 
 ;; auto-revert buffers on disk changes:
 (global-auto-revert-mode)
@@ -118,6 +119,7 @@
 (autoload #'espresso-mode "espresso" "Start espresso-mode" t)
 (add-to-list 'auto-mode-alist '("\\.js$" . espresso-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))
+(setq espresso-indent-level 2)
 
 ;; markdown-mode
 (add-to-list 'load-path "~/.emacs.d/markdown")

@@ -9,18 +9,19 @@
 ;; auto-revert buffers on disk changes:
 (global-auto-revert-mode)
 
+;; blank chars handling:
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; show-wspace ; breaks magit colors :(
+;;(add-to-list 'load-path "~/.emacs.d/show-wspace")
+;;(require 'show-wspace)
+;;(show-ws-toggle-show-trailing-whitespace)
+;;(show-ws-toggle-show-tabs)
+
 ;; shell
 (setenv "PAGER" "/bin/cat")
   (setenv "EDITOR" "/usr/bin/emacsclient") ; `which emacsclient`
   (server-start)
-
-;; git
-;;(require 'git) ;; basic git official major mode
-
-;; git-emacs
-;; (add-to-list 'load-path "~/.emacs.d/git-emacs")
-;; (require 'git-emacs)
-;; (require 'git-status)
 
 ;; magit
 (add-to-list 'load-path "~/.emacs.d/magit")
@@ -32,7 +33,7 @@
   (interactive)
   (insert "end")
   (ruby-indent-line t)
-  (end-of-line)) 
+  (end-of-line))
 
 ;; Ruby eletric-mode
 (add-hook 'ruby-mode-hook

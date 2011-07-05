@@ -191,6 +191,27 @@
 ;; shell-mode colors
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
+;; auto-complete (don't forget to install it)
+(add-to-list 'load-path "~/.emacs.d/auto-complete-bin")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete-bin/ac-dict")
+(ac-config-default)
+(auto-complete-mode)
+(global-auto-complete-mode t)
+(setq ac-auto-start t)
+(setq ac-dwim t)
+(setq ac-use-comphist t)
+(set-default 'ac-sources
+             '(ac-source-dictionary
+               ac-source-words-in-buffer
+               ac-source-words-in-same-mode-buffers
+               ac-source-words-in-all-buffer))
+(dolist (mode '(magit-log-edit-mode log-edit-mode org-mode text-mode haml-mode
+                sass-mode yaml-mode csv-mode espresso-mode haskell-mode
+                html-mode nxml-mode sh-mode smarty-mode clojure-mode
+                lisp-mode textile-mode markdown-mode tuareg-mode))
+  (add-to-list 'ac-modes mode))
+
 (global-set-key (kbd "RET") 'newline-and-indent)
 
 (put 'scroll-left 'disabled nil)

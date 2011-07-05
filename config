@@ -201,6 +201,7 @@
 (setq ac-auto-start t)
 (setq ac-dwim t)
 (setq ac-use-comphist t)
+(define-key ac-complete-mode-map "\r" nil)
 (set-default 'ac-sources
              '(ac-source-dictionary
                ac-source-words-in-buffer

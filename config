@@ -226,3 +226,8 @@
 (global-set-key (kbd "RET") 'newline-and-indent)
 
 (put 'scroll-left 'disabled nil)
+
+;; org-mode
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
